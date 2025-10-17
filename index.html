@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ビジネスを加速するデジタルソリューションLP</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Iconsをロード -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* スタイリッシュなフォント設定 */
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1F2937; /* Gray 800 (デフォルトの黒色) */
+            background-color: #F9FAFB; /* Gray 50 */
+        }
+        /* スクロール時のスムーススクロール設定 */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* ヘッダーのシャドウ */
+        .header-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+        }
+        /* アクセントカラー (#4F46E5 - Indigo 600) */
+        .text-accent { color: #4F46E5; }
+        .bg-accent { background-color: #4F46E5; }
+        .border-accent { border-color: #4F46E5; }
+        
+        /* ヘッダーナビゲーションの下線アニメーション用CSSの追加 */
+        .nav-link {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 4px; /* 下線のためにスペースを確保 */
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0; /* 初期状態は幅ゼロ */
+            height: 2px; /* 下線の太さ */
+            background-color: #4F46E5; /* アクセントカラー */
+            transition: width 0.3s ease-out; /* アニメーションの設定 */
+        }
+        /* ホバー時に下線が伸びる */
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Heroセクションの見出しコンテナ: 行の高さを増やしクリッピングを確実に防ぐ */
+        .hero-title-container {
+            /* 修正: line-heightを微調整し、overflow visibleで強制的にクリッピングを解除 */
+            line-height: 1.5; 
+            overflow: visible !important; /* 強制的にクリッピングを解除 */
+        }
+
+        /* Heroセクションの背景設定 (画像が表示されない場合のフォールバック含む) */
+        .hero-bg-digital {
+            /* 背景画像をImage/Hero.pngに変更 */
+            background-image: url('Image/Hero.png'); 
+            background-size: cover;
+            background-position: center;
+        }
+        .hero-bg-digital-fallback {
+             background-color: #111827; /* Gray 900 */
+        }
+
+        /* セクション見出しの下線アニメーション用CSS */
+        .title-underline {
+            height: 4px; /* 下線の太さ */
+            width: 0; /* 初期状態の幅: 0 */
+            /* アニメーション時間とイージング関数 */
+            transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+            opacity: 0.8; 
+        }
+        
+        /* 見出し要素の幅をコンテンツに合わせ、中央寄せを維持する設定 */
+        .section-title {
+            display: inline-block; /* 幅を文字の長さに合わせる */
+            /* 親要素の中央寄せ（text-center）と組み合わせるために必要 */
+        }
+
+        /* ヒーローセクションの見出しの幅調整 */
+        .hero-title {
+            display: inline-block; 
+        }
+        
+        /* 上下に揺れるアニメーションの定義 */
+        @keyframes float-y {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        .animate-float-y {
+            animation: float-y 2s ease-in-out infinite;
+        }
+        
+        /* サービスカード内のリスト項目の中央寄せを維持するため、チェックアイコンの左側のマージンを調整 */
+        /* service-list-item の justify-content: center; は不要になったため削除し、list-style-position: inside を追加して左詰めで調整 */
+        .service-list-item {
+            justify-content: flex-start; /* flex-startに戻す */
+        }
+        .service-list-item i {
+            margin-right: 0.5rem; /* Lucide iconの右側のマージンを維持 */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- ヘッダー -->
+    <header class="sticky top-0 z-50 bg-white header-shadow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- ロゴ -->
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-2xl font-bold text-gray-900 tracking-tight">Digital<span class="text-accent">Solutions</span></a>
+                </div>
+                <!-- ナビゲーション (デスクトップ用) -->
+                <nav class="hidden md:flex space-x-8">
+                    <!-- 修正: nav-linkクラスを追加 -->
+                    <a href="#services" class="text-gray-600 hover:text-accent font-medium transition duration-150 nav-link">サービス</a>
+                    <a href="#portfolio" class="text-gray-600 hover:text-accent font-medium transition duration-150 nav-link">実績</a>
+                    <a href="#features" class="text-gray-600 hover:text-accent font-medium transition duration-150 nav-link">強み</a>
+                    <!-- 修正: nav-linkクラスを追加 -->
+                    <a href="#contact" class="text-gray-600 hover:text-accent font-medium transition duration-150 nav-link">お問い合せ</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- ヒーローセクション -->
+        <section class="relative pb-32 overflow-hidden hero-bg-digital hero-bg-digital-fallback text-white" style="overflow:visible !important;">
+            <!-- 暗いオーバーレイ -->
+            <div class="absolute inset-0 bg-gray-900 opacity-60"></div> 
+            
+            <!-- コンテンツ -->
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-40 pb-20 sm:pt-48 sm:pb-32"> 
+                
+                <!-- 修正: text-sm を text-lg に変更して大きくする -->
+                <p class="text-lg font-semibold text-white uppercase tracking-wider mb-3">テクノロジーで、ビジネスの未来をデザインする</p>
+                
+                <!-- メインタイトル -->
+                <!-- 修正: py-6 を py-8 に増やし、文字がクリッピングされるのを防ぐ -->
+                <h1 class="text-5xl sm:text-6xl font-extrabold tracking-tight mb-6 hero-title-container py-6" style="line-height:1.5 !important; overflow:visible !important; position:relative;">
+                    <span class="hero-title text-white" style="line-height:1.5 !important; overflow:visible !important; position:relative; display:inline;">ビジネスを加速する </span>
+                    <span class="hero-title bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-purple-400" style="line-height:1.5 !important; overflow:visible !important; position:relative; display:inline;">Digital Solutions</span>
+                </h1>
+                
+                <p class="mt-4 text-xl text-indigo-200 max-w-3xl mx-auto">
+                    LP開発・ツール作成・AI研修で、 あなたのビジネスを次のステージへ
+                </p>
+                
+                <!-- CTAボタン -->
+                <div class="mt-16 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <!-- 無料相談ボタン: サイズを大きく (text-base -> text-lg, px-8 py-3 -> px-10 py-4) -->
+                    <a href="#contact" class="w-full sm:w-auto px-10 py-4 border border-transparent text-lg font-medium rounded-full shadow-lg text-white bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 transition duration-300 animate-float-y">
+                        無料相談を申し込む
+                    </a>
+                    <!-- 実績を見るボタン: サイズを大きく (text-base -> text-lg, px-8 py-3 -> px-10 py-4) -->
+                    <a href="#portfolio" class="w-full sm:w-auto px-10 py-4 border border-transparent text-lg font-medium rounded-full shadow-lg text-white bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 transition duration-300">
+                        実績を見る
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- お悩みセクション -->
+        <section id="concerns" class="py-20 sm:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <!-- section-titleにinline-blockを適用することで幅が文字に限定される -->
+                    <p class="mt-2 text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl section-title">
+                        こんなお悩みはありませんか？
+                    </p>
+                    <!-- 下線アニメーション対象 -->
+                    <div class="title-underline mx-auto mt-4 bg-accent"></div>
+                </div>
+
+                <!-- 修正: イラスト付きの2カラムレイアウトを復元 (max-w-6xlに変更) -->
+                <div class="max-w-6xl mx-auto p-8 bg-gray-50 rounded-xl shadow-2xl border-l-4 border-accent">
+                    
+                    <!-- コンテナ内をグリッドで左右に分割 (リスト: 2/3, イラスト: 1/3) -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                        
+                        <!-- 左側: お悩みリスト (2/3の幅) -->
+                        <div class="md:col-span-2 space-y-8">
+                            
+                            <!-- お悩み 1 -->
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-10">
+                                <div class="flex items-start space-x-4">
+                                    <!-- Lucide Icon: check-circle -->
+                                    <i data-lucide="check-circle" class="h-6 w-6 text-accent flex-shrink-0 mt-1"></i>
+                                    <div>
+                                        <p class="text-xl font-bold text-gray-900 mb-1">業務プロセスの非効率性</p>
+                                        <p class="text-gray-600 text-sm">
+                                            既存の業務が属人化しており、多くの手作業が残っているため、生産性が向上しない。
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- お悩み 2 -->
+                                <div class="flex items-start space-x-4">
+                                    <i data-lucide="check-circle" class="h-6 w-6 text-accent flex-shrink-0 mt-1"></i>
+                                    <div>
+                                        <p class="text-xl font-bold text-gray-900 mb-1">データの散在と活用不足</p>
+                                        <p class="text-gray-600 text-sm">
+                                            各部門でデータがバラバラに管理されており、統合的な分析ができず、迅速な意思決定に役立てられていない。
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-10">
+                                <!-- お悩み 3 -->
+                                <div class="flex items-start space-x-4">
+                                    <i data-lucide="check-circle" class="h-6 w-6 text-accent flex-shrink-0 mt-1"></i>
+                                    <div>
+                                        <p class="text-xl font-bold text-gray-900 mb-1">最新技術の導入と人材育成</p>
+                                        <p class="text-gray-600 text-sm">
+                                            DX推進の必要性は認識しているものの、どの技術を導入すべきかわからず、それを扱える専門人材も不足している。
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- お悩み 4 -->
+                                <div class="flex items-start space-x-4">
+                                    <i data-lucide="check-circle" class="h-6 w-6 text-accent flex-shrink-0 mt-1"></i>
+                                    <div>
+                                        <p class="text-xl font-bold text-gray-900 mb-1">顧客エンゲージメントの低下</p>
+                                        <p class="text-gray-600 text-sm">
+                                            顧客からの問い合わせ対応に時間がかかり、個別のニーズに対応できていないため、顧客満足度が伸び悩んでいる。
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 右側: イラスト (1/3の幅, デスクトップのみ表示) -->
+                        <div class="hidden md:flex justify-center items-center h-full md:col-span-1">
+                            <!-- イラストを再配置 -->
+                            <img src="Image/worry.png" alt="悩んでいるビジネスパーソンのイラスト" class="max-w-full h-auto">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- サービスセクション -->
+        <section id="services" class="py-20 sm:py-32 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-base font-semibold text-accent tracking-wide uppercase">OUR SERVICES</h2>
+                    <p class="mt-2 text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl section-title">
+                        3つのコアサービス
+                    </p>
+                    <div class="title-underline mx-auto mt-4 bg-accent"></div>
+                    <p class="mt-4 text-xl text-gray-500">
+                        お客様のビジネス成長に直結する、戦略的かつ実用的なソリューションを提供します。
+                    </p>
+                </div>
+
+                <div class="mt-10 grid grid-cols-1 gap-10 md:grid-cols-3">
+                    <!-- サービス 1: LP開発 (中央寄せをh3と画像のみに適用) - グラデーションを追加 -->
+                    <div class="flex flex-col rounded-xl shadow-xl overflow-hidden transform transition duration-500 hover:shadow-2xl hover:-translate-y-1 bg-gradient-to-br from-blue-50 to-indigo-100">
+                        <div class="p-8 flex-grow">
+                            <!-- アイコンを画像に置換 (中央寄せ) -->
+                            <div class="flex-shrink-0 mb-4 flex justify-center">
+                                <img src="Image/SERVICES1.png" alt="LP開発のイラスト" class="h-16 w-16 object-contain">
+                            </div>
+                            <!-- h3 (メインタイトル) のみを中央寄せ -->
+                            <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">LP開発</h3>
+                            <!-- 説明文とリストは左詰め (デフォルト) -->
+                            <p class="text-gray-500 mb-4 text-left">
+                                コンバージョン最適化されたランディングページを作成。デザインから実装、SEO対策まで一気通貫でサポートします。
+                            </p>
+                            <!-- リストは左詰め -->
+                            <ul class="space-y-2 text-sm text-gray-600 text-left">
+                                <li class="flex items-center service-list-item"><i data-lucide="check-circle" class="h-4 w-4 text-green-500 mr-2"></i>レスポンシブデザイン</li>
+                                <li class="flex items-center service-list-item"><i data-lucide="check-circle" class="h-4 w-4 text-green-500 mr-2"></i>高速パフォーマンス</li>
+                                <li class="flex items-center service-list-item"><i data-lucide="check-circle" class="h-4 w-4 text-green-500 mr-2"></i>SEO最適化</li>
+                                <li class="flex items-center service-list-item"><i data-lucide="check-circle" class="h-4 w-4 text-green-500 mr-2"></i>アナリティクス連携</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- サービス 2: ツール作成 (中央寄せをh3と画像のみに適用) - グラデーションを追加 -->
+                    <div class="flex flex-col rounded-xl shadow-xl overflow-hidden transform transition duration-500 hover:shadow-2xl hover:-translate-y-1 bg-gradient-to-br from-green-50 to-teal-100">
+                        <div class="p-8 flex-grow">
+                            <!-- アイコンを画像に置換 (中央寄せ) -->
+                            <div class="flex-shrink-0 mb-4 flex justify-center">
+                                <img src="Image/SERVICES2.png" alt="ツール作成のイラスト" class="h-16 w-16 object-contain">
+                            </div>
+                            <!-- h3 (メインタイトル) のみを中央寄せ -->
+                            <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">ツール作成</h3>
+                            <!-- 説明文とリストは左詰め (デフォルト) -->
+                            <p class="text-gray-500 mb-4 text-left">
+                                業務効率化を実現する実用的なツールを開発。在庫管理、検索システム、データ分析ツールなど幅広く対応。
+                            </p>
+                            <!-- リストは左詰め -->
+                            <ul class="space-y-2 text-sm text-gray-600 text-left">
+                                <li class="flex items-center service-list-item"><i data-lucide="check-circle" class="h-4 w-4 text-green-500 mr-2"></i>業務効率化ツール</li>
+                                <li class="flex items-center service-list-item"><i data-lucide="check-circle" class="h-4 w-4 text-green-500 mr-2"></i>データ管理システム</li>
+                                <li class="flex items-center service-list-item"><i data-lucide="check-circle" class="h-4 w-4 text-green-500 mr-2"></i>専門業務ツール</li>
+                                <li class="flex items-center service-list-item"><i data-lucide="check-circle" class="h-4 w-4 text-green-500 mr-2"></i>カスタマイズ対応</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- サービス 3: AI研修 (中央寄せをh3と画像のみに適用) - グラデーションを追加 -->
+                    <div class="flex flex-col rounded-xl shadow-xl overflow-hidden transform transition duration-500 hover:shadow-2xl hover:-translate-y-1 bg-gradient-to-br from-purple-50 to-pink-100">
+                        <div class="p-8 flex-grow">
+                            <!-- アイコンを画像に置換 (中央寄せ) -->
+                            <div class="flex-shrink-0 mb-4 flex justify-center">
+                                <img src="Image/SERVICES3.png" alt="AI研修のイラスト" class="h-16 w-16 object-contain">
+                            </div>
+                            <!-- h3 (メインタイトル) のみを中央寄せ -->
+                            <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">AI研修</h3>
+                            <!-- 説明文とリストは左詰め (デフォルト) -->
+                            <p class="text-gray-500 mb-4 text-left">
+                                非エンジニア向けにAIの活用方法を分かりやすく指導。実践的なスキルを習得できる研修プログラムを提供。
+                            </p>
+                            <!-- リストは左詰め -->
+                            <ul class="space-y-2 text-sm text-gray-600 text-left">
+                                <li class="flex items-center service-list-item"><i data-lucide="check-circle" class="h-4 w-4 text-green-500 mr-2"></i>初心者向けカリキュラム</li>
+                                <li class="flex items-center service-list-item"><i data-lucide="check-circle" class="h-4 w-4 text-green-500 mr-2"></i>実践的なハンズオン</li>
+                                <li class="flex items-center service-list-item"><i data-lucide="check-circle" class="h-4 w-4 text-green-500 mr-2"></i>業務への応用支援</li>
+                                <li class="flex items-center service-list-item"><i data-lucide="check-circle" class="h-4 w-4 text-green-500 mr-2"></i>個別サポート</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 実績セクション -->
+        <section id="portfolio" class="py-20 sm:py-32 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-base font-semibold text-accent tracking-wide uppercase">PORTFOLIO</h2>
+                    <!-- section-titleにinline-blockを適用することで幅が文字に限定される -->
+                    <p class="mt-2 text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl section-title">
+                        制作実績
+                    </p>
+                    <div class="title-underline mx-auto mt-4 bg-accent"></div>
+                    <!-- 説明文は削除済み -->
+                </div>
+
+                <div class="mt-12 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
+                    <!-- 実績 1: ゲーム機買取・在庫管理システム (画像パス変更) -->
+                    <div class="bg-gray-50 rounded-xl shadow-lg overflow-hidden group">
+                        <div class="relative w-full h-56 overflow-hidden">
+                            <!-- 修正: border-4 border-white を追加 -->
+                            <img src="Image/PORTFOLIO1.png" alt="[ゲーム在庫管理システムのイメージ]" class="w-full h-full object-cover transition duration-300 group-hover:scale-105 border-4 border-white">
+                            <div class="absolute inset-0 bg-gray-900 bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <!-- リンク先URLは変更なし -->
+                                <a href="https://game-nu-orpin.vercel.app/" target="_blank" class="px-6 py-3 border border-white text-base font-medium rounded-full text-white hover:bg-white hover:text-gray-900 transition duration-300 flex items-center space-x-2">
+                                    <span>サイトを見る</span>
+                                    <i data-lucide="external-link" class="h-5 w-5"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">ゲーム機買取・在庫管理システム</h3>
+                            <p class="text-gray-600 text-sm mb-4">
+                                中古品買取業務の効率化のため、リアルタイム在庫確認と価格管理を実現するWebシステムを開発。
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs font-medium bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">React</span>
+                                <span class="text-xs font-medium bg-purple-100 text-purple-800 px-3 py-1 rounded-full">Next.js</span>
+                                <span class="text-xs font-medium bg-green-100 text-green-800 px-3 py-1 rounded-full">業務効率化</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 実績 2: ココデザイン LP (画像パス変更) -->
+                    <div class="bg-gray-50 rounded-xl shadow-lg overflow-hidden group">
+                        <div class="relative w-full h-56 overflow-hidden">
+                            <!-- 修正: border-4 border-white を追加 -->
+                            <img src="Image/PORTFOLIO2.png" alt="[マーケティングLPのイメージ]" class="w-full h-full object-cover transition duration-300 group-hover:scale-105 border-4 border-white">
+                            <div class="absolute inset-0 bg-gray-900 bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <a href="https://cocodesign.vercel.app/" target="_blank" class="px-6 py-3 border border-white text-base font-medium rounded-full text-white hover:bg-white hover:text-gray-900 transition duration-300 flex items-center space-x-2">
+                                    <span>サイトを見る</span>
+                                    <i data-lucide="external-link" class="h-5 w-5"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">ココデザイン LP</h3>
+                            <p class="text-gray-600 text-sm mb-4">
+                                感情訴求型のマーケティングLP。ストーリーテリングとCTA最適化で高いコンバージョンを実現
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs font-medium bg-red-100 text-red-800 px-3 py-1 rounded-full">HTML/CSS</span>
+                                <span class="text-xs font-medium bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full">SEO</span>
+                                <span class="text-xs font-medium bg-blue-100 text-blue-800 px-3 py-1 rounded-full">マーケティング</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 実績 3: 「ポケサーチ」 (画像パス変更) -->
+                    <div class="bg-gray-50 rounded-xl shadow-lg overflow-hidden group">
+                        <div class="relative w-full h-56 overflow-hidden">
+                            <!-- 修正: border-4 border-white を追加 -->
+                            <img src="Image/PORTFOLIO3.png" alt="[専門検索ツールのイメージ]" class="w-full h-full object-cover transition duration-300 group-hover:scale-105 border-4 border-white">
+                            <div class="absolute inset-0 bg-gray-900 bg-opacity-60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <a href="https://moc-pokeca0718.vercel.app/" target="_blank" class="px-6 py-3 border border-white text-base font-medium rounded-full text-white hover:bg-white hover:text-gray-900 transition duration-300 flex items-center space-x-2">
+                                    <span>サイトを見る</span>
+                                    <i data-lucide="external-link" class="h-5 w-5"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="p-6">
+                            <!-- タイトルを「ポケサーチ」に修正 -->
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">ポケサーチ</h3>
+                            <!-- 説明文を修正 -->
+                            <p class="text-gray-600 text-sm mb-4">
+                                ポケモンカード専門の検索ツール。大量のデータから目的のカードを一瞬で見つけ出す、高速かつ直感的な検索インターフェースを開発。
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs font-medium bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">React</span>
+                                <span class="text-xs font-medium bg-teal-100 text-teal-800 px-3 py-1 rounded-full">リアルタイム検索</span>
+                                <span class="text-xs font-medium bg-green-100 text-green-800 px-3 py-1 rounded-full">UX設計</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 強みセクション -->
+        <section id="features" class="py-20 sm:py-32 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-base font-semibold text-accent tracking-wide uppercase">WHY CHOOSE US</h2>
+                    <!-- タイトル: Digital Solutionsが選ばれる理由 -->
+                    <p class="mt-2 text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl section-title">
+                        Digital Solutionsが選ばれる理由
+                    </p>
+                    <div class="title-underline mx-auto mt-4 bg-accent"></div>
+                    <p class="mt-4 text-xl text-gray-500">
+                        確かな技術力と成果にコミットする姿勢で、お客様の期待を超える価値を提供します。
+                    </p>
+                </div>
+
+                <!-- 4つのカードレイアウト (縦長+写真を追加) - 順序を変更 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                    
+                    <!-- カード 1: プロジェクト実績 -->
+                    <div class="flex flex-col bg-white rounded-xl shadow-lg border-t-4 border-green-600 transition duration-300 hover:shadow-xl overflow-hidden">
+                        <div class="flex-grow p-6 flex flex-col items-center text-center">
+                            <!-- 修正: text-accent -> text-green-600 -->
+                            <div class="text-5xl font-extrabold text-green-600 mb-2">50+</div>
+                            <!-- 修正: text-xl -> text-lg (行数を調整) -->
+                            <h3 class="text-lg font-bold text-gray-900 mb-3">プロジェクト実績</h3>
+                            <p class="text-sm text-gray-600 flex-grow">
+                                Webサービス、業務システム、LPなど、様々な業界・業種で豊富な開発実績があります。
+                            </p>
+                        </div>
+                        <!-- 修正: 画像に h-40 object-cover を適用し、サイズを統一 -->
+                        <img src="Image/Reason1.png" alt="実績のイメージ" class="w-full h-40 object-cover border-t border-gray-100">
+                    </div>
+
+                    <!-- カード 2: 顧客満足度 -->
+                    <div class="flex flex-col bg-white rounded-xl shadow-lg border-t-4 border-green-600 transition duration-300 hover:shadow-xl overflow-hidden">
+                        <div class="flex-grow p-6 flex flex-col items-center text-center">
+                            <!-- 修正: text-accent -> text-green-600 -->
+                            <div class="text-5xl font-extrabold text-green-600 mb-2">98%</div>
+                            <!-- 修正: text-xl -> text-lg (行数を調整) -->
+                            <h3 class="text-lg font-bold text-gray-900 mb-3">顧客満足度</h3>
+                            <p class="text-sm text-gray-600 flex-grow">
+                                丁寧なヒアリング、迅速な対応、期待を超える品質で高い評価をいただいています。
+                            </p>
+                        </div>
+                        <!-- 修正: 画像に h-40 object-cover を適用し、サイズを統一 -->
+                        <img src="Image/Reason2.png" alt="満足度のイメージ" class="w-full h-40 object-cover border-t border-gray-100">
+                    </div>
+                    
+                    <!-- カード 3: 成果重視のコミットメント -->
+                    <div class="flex flex-col bg-white rounded-xl shadow-lg border-t-4 border-green-600 transition duration-300 hover:shadow-xl overflow-hidden">
+                        <div class="flex-grow p-6 flex flex-col items-center text-center">
+                            <!-- 修正: bg-accent -> bg-green-600 -->
+                            <div class="flex-shrink-0 bg-green-600 p-3 rounded-full text-white shadow-md mb-4">
+                                <i data-lucide="trending-up" class="h-6 w-6"></i>
+                            </div>
+                            <!-- 修正: text-xl -> text-lg (1行に収まるように調整) -->
+                            <h3 class="text-lg font-bold text-gray-900 mb-3">成果重視のコミットメント</h3>
+                            <p class="text-sm text-gray-600 flex-grow">
+                                開発がゴールではなく、売上向上や業務効率化といったビジネス成果に直結することを最優先します。KPI設定から運用改善まで、データに基づいた支援を行います。
+                            </p>
+                        </div>
+                        <!-- 修正: 画像に h-40 object-cover を適用し、サイズを統一 -->
+                        <img src="Image/Reason3.png" alt="成果のイメージ" class="w-full h-40 object-cover border-t border-gray-100">
+                    </div>
+
+                    <!-- カード 4: モダン技術と高い品質 -->
+                    <div class="flex flex-col bg-white rounded-xl shadow-lg border-t-4 border-green-600 transition duration-300 hover:shadow-xl overflow-hidden">
+                        <div class="flex-grow p-6 flex flex-col items-center text-center">
+                            <!-- 修正: bg-accent -> bg-green-600 -->
+                            <div class="flex-shrink-0 bg-green-600 p-3 rounded-full text-white shadow-md mb-4">
+                                <i data-lucide="code" class="h-6 w-6"></i>
+                            </div>
+                            <!-- 修正: text-xl -> text-lg (行数を調整) -->
+                            <h3 class="text-lg font-bold text-gray-900 mb-3">モダン技術と高い品質</h3>
+                            <p class="text-sm text-gray-600 flex-grow">
+                                React, Next.js, TypeScriptなどの最新技術で、高品質かつ将来的な拡張性に優れたシステムを実現します。
+                            </p>
+                        </div>
+                        <!-- 修正: 画像に h-40 object-cover を適用し、サイズを統一 -->
+                        <img src="Image/Reason4.png" alt="技術のイメージ" class="w-full h-40 object-cover border-t border-gray-100">
+                    </div>
+
+                </div>
+
+                <!-- 充実したサポート体制 (イラストを削除し、テキストのみの1カラムレイアウトに戻す) -->
+                <div class="max-w-4xl mx-auto p-8 bg-white rounded-xl shadow-2xl border-l-4 border-green-600 flex flex-col md:flex-row items-center gap-8">
+                    <div class="flex-1 w-full">
+                        <h4 class="text-2xl font-bold text-gray-900 mb-4">充実したサポート体制</h4>
+                        <ul class="space-y-4 text-gray-700">
+                            <li class="flex items-start"><i data-lucide="check" class="h-5 w-5 text-green-600 flex-shrink-0 mt-1 mr-2"></i><p>納品後の運用支援、バグ修正、機能改善提案まで継続的にサポートします。</p></li>
+                            <li class="flex items-start"><i data-lucide="check" class="h-5 w-5 text-green-600 flex-shrink-0 mt-1 mr-2"></i><p>24/7の緊急対応可能なサポート体制で、安心を提供します。</p></li>
+                            <li class="flex items-start"><i data-lucide="check" class="h-5 w-5 text-green-600 flex-shrink-0 mt-1 mr-2"></i><p>ご要望に応じて、保守・運用フェーズでの技術的なトレーニングも実施可能です。</p></li>
+                        </ul>
+                    </div>
+                    <div class="w-full md:w-auto flex justify-center">
+                        <img src="Image/Support.png" alt="サポートイメージ" class="h-40 object-contain" style="max-width:250px;" />
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- CTA中間セクション -->
+        <section class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="p-10 md:p-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl shadow-2xl text-center">
+                    <!-- タイトル: section-titleクラスとtitle-underline要素を削除 -->
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
+                        まずは無料相談から始めませんか?
+                    </h2>
+                    <!-- 下線要素を削除: <div class="title-underline mx-auto mt-4 bg-white opacity-100"></div> -->
+                    
+                    <!-- 説明文を修正 -->
+                    <p class="text-xl text-indigo-200 mb-8 max-w-2xl mx-auto">
+                        プロジェクトのご相談、お見積もり、技術的な質問など何でもお気軽にお問い合わせください
+                    </p>
+                    
+                    <!-- CTAボタン: 矢印を削除し、アニメーションを付与 -->
+                    <a href="#contact" class="inline-flex items-center justify-center px-10 py-4 border border-transparent text-base font-bold rounded-full text-indigo-700 bg-white hover:bg-indigo-50 transition duration-300 transform hover:scale-[1.01] animate-float-y">
+                        無料相談を申し込む
+                        <!-- 矢印を削除: <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i> -->
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- お問い合わせセクション -->
+        <section id="contact" class="py-20 sm:py-32 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-base font-semibold text-accent tracking-wide uppercase">CONTACT US</h2>
+                    <!-- section-titleにinline-blockを適用することで幅が文字に限定される -->
+                    <p class="mt-2 text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl section-title">
+                        お問い合せフォーム
+                    </p>
+                    <!-- 下線アニメーション対象 -->
+                    <div class="title-underline mx-auto mt-4 bg-accent"></div>
+                    <!-- 修正: 説明文を削除 -->
+                    <!-- <p class="mt-4 text-xl text-gray-500>
+                        プロジェクトのご相談、お見積もり、技術的な質問など、お気軽にご連絡ください。
+                    </p> -->
+                </div>
+
+                <div class="max-w-3xl mx-auto bg-white p-8 sm:p-12 rounded-xl shadow-2xl">
+                    <!-- フォームの送信時にカスタムメッセージボックスを表示 -->
+                    <form class="space-y-6" onsubmit="event.preventDefault(); showMessage('お問い合わせありがとうございます。担当者より折り返しご連絡いたします。');">
+                        
+                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700">お名前 <span class="text-red-500">*</span></label>
+                                <input type="text" id="name" required placeholder="例：山田 太郎" class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring-accent focus:border-accent">
+                            </div>
+                            <div>
+                                <label for="company" class="block text-sm font-medium text-gray-700">会社名</label>
+                                <input type="text" id="company" placeholder="例：株式会社デジタルソリューションズ" class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring-accent focus:border-accent">
+                            </div>
+                        </div>
+
+                        
+                        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700">メールアドレス <span class="text-red-500">*</span></label>
+                                <input type="email" id="email" required placeholder="例：yourname@example.com" class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring-accent focus:border-accent">
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-gray-700">電話番号</label>
+                                <input type="tel" id="phone" placeholder="例：090-1234-5678" class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring-accent focus:border-accent">
+                            </div>
+                        </div>
+
+                        
+                        <div>
+                            <label for="service_type" class="block text-sm font-medium text-gray-700">サービス種別 <span class="text-red-500">*</span></label>
+                            <select id="service_type" required class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring-accent focus:border-accent appearance-none bg-white">
+                                <option value="">選択してください</option>
+                                <option value="lp">LP開発</option>
+                                <option value="tool">ツール作成</option>
+                                <option value="ai">AI研修</option>
+                                <option value="other">その他</option>
+                            </select>
+                        </div>
+
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700">お問い合せ内容 <span class="text-red-500">*</span></label>
+                            <textarea id="message" rows="4" required placeholder="例：〇〇に関するLP開発を検討しています。費用感についてお伺いしたいです。" class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-3 focus:ring-accent focus:border-accent"></textarea>
+                        </div>
+
+                        
+                        <div class="pt-2">
+                            <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-full shadow-lg text-lg font-medium text-white bg-accent hover:bg-indigo-700 transition duration-300 transform hover:scale-[1.01]">
+                                送信する
+                            </button>
+                        </div>
+                    </form>
+
+                    
+                    <div class="mt-12 border-t pt-8 grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+                        <div>
+                            <i data-lucide="mail" class="h-6 w-6 text-accent mx-auto mb-2"></i>
+                            <p class="font-semibold text-gray-900">Email</p>
+                            <a href="mailto:info@digitalsol.jp" class="text-gray-600 hover:text-accent">info@digitalsol.jp</a>
+                        </div>
+                        <div>
+                            <i data-lucide="phone" class="h-6 w-6 text-accent mx-auto mb-2"></i>
+                            <p class="font-semibold text-gray-900">電話番号</p>
+                            <p class="text-gray-600">03-1234-5678</p>
+                        </div>
+                        <div>
+                            <i data-lucide="clock" class="h-6 w-6 text-accent mx-auto mb-2"></i>
+                            <p class="font-semibold text-gray-900">営業時間</p>
+                            <p class="text-gray-600">平日 9:00 - 18:00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- カスタムメッセージボックス (alertの代替) -->
+        <div id="custom-message-box" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-[100] hidden flex items-center justify-center p-4">
+            <div class="bg-white p-6 rounded-lg shadow-2xl max-w-sm w-full text-center">
+                <div id="message-icon" class="mb-4">
+                    <i data-lucide="mail-check" class="h-8 w-8 text-green-500 mx-auto"></i>
+                </div>
+                <p id="message-text" class="text-gray-800 font-medium mb-6">メッセージ</p>
+                <button onclick="document.getElementById('custom-message-box').classList.add('hidden')" class="px-6 py-2 bg-accent text-white rounded-full hover:bg-indigo-700 transition duration-150">閉じる</button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- フッター -->
+    <footer class="bg-gray-800 text-white">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Digital<span class="text-accent">Solutions</span></h4>
+                    <p class="text-sm text-gray-400">
+                        LP開発、ツール作成、AI研修を通じて、ビジネスの成長をサポートします。
+                    </p>
+                </div>
+                
+                <div>
+                    <h5 class="text-lg font-semibold mb-4 text-gray-300">サービス</h5>
+                    <ul class="space-y-2">
+                        <li><a href="#services" class="text-gray-400 hover:text-accent transition duration-150 text-sm">LP開発</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-accent transition duration-150 text-sm">ツール作成</a></li>
+                        <li><a href="#services" class="text-gray-400 hover:text-accent transition duration-150 text-sm">AI研修</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h5 class="text-lg font-semibold mb-4 text-gray-300">情報</h5>
+                    <ul class="space-y-2">
+                        <li><a href="#portfolio" class="text-gray-400 hover:text-accent transition duration-150 text-sm">実績</a></li>
+                        <li><a href="#features" class="text-gray-400 hover:text-accent transition duration-150 text-sm">強み</a></li>
+                        <!-- 修正: 「問い合わせ」を「お問い合せ」に変更 -->
+                        <li><a href="#contact" class="text-gray-400 hover:text-accent transition duration-150 text-sm">お問い合せ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h5 class="text-lg font-semibold mb-4 text-gray-300">SNS</h5>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-accent"><i data-lucide="twitter" class="h-6 w-6"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-accent"><i data-lucide="facebook" class="h-6 w-6"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-accent"><i data-lucide="linkedin" class="h-6 w-6"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-gray-700 pt-8 text-center">
+                <p class="text-sm text-gray-500">&copy; 2025 Digital Solutions. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Lucide Iconsを初期化
+        lucide.createIcons();
+        
+        // カスタムメッセージボックス表示関数 (alertの代替)
+        function showMessage(text) {
+            const messageBox = document.getElementById('custom-message-box');
+            const messageText = document.getElementById('message-text');
+            messageText.textContent = text;
+            messageBox.classList.remove('hidden');
+        }
+
+        // セクション到達時に下線をアニメーションさせる関数
+        function setupIntersectionObserver() {
+            // Intersection Observerの設定
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    // 要素がビューポートに入ったら
+                    if (entry.isIntersecting) {
+                        const titleElement = entry.target;
+                        // 下線要素はタイトル要素の直後の兄弟要素
+                        // (タイトルテキストと下線はHTMLで連続して配置されていることが前提)
+                        const underline = titleElement.nextElementSibling;
+                        
+                        if (underline && underline.classList.contains('title-underline')) {
+                            // 1. 見出しの幅を取得
+                            const titleWidth = titleElement.offsetWidth;
+
+                            // 2. 目標幅を見出しの幅そのものに設定
+                            const targetWidth = titleWidth;
+                            
+                            // 3. 下線要素に計算した幅を設定してアニメーションを起動
+                            underline.style.width = `${targetWidth}px`;
+
+                        }
+                        // 一度表示したら監視を停止
+                        observer.unobserve(titleElement);
+                    }
+                });
+            }, {
+                rootMargin: '0px',
+                // 10%見えたらアニメーションを開始
+                threshold: 0.1 
+            });
+
+            // 監視対象: 全てのセクションタイトル (section-titleクラスを付与)
+            // CTA中間セクションのタイトルにはsection-titleクラスを削除したため、監視対象から外れる
+            const targets = document.querySelectorAll('.section-title');
+            targets.forEach(target => observer.observe(target));
+        }
+
+        // ウィンドウのロードが完了したら実行
+        window.onload = function() {
+            // Intersection Observerをセットアップ
+            setupIntersectionObserver();
+        };
+    </script>
+</body>
+</html>
