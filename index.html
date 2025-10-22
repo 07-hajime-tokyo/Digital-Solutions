@@ -107,34 +107,82 @@
         .service-list-item i {
             margin-right: 0.5rem; /* Lucide iconの右側のマージンを維持 */
         }
+        
+        /* 追加: モバイルメニュー用のスタイル */
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(100%); /* 初期状態は非表示（画面外） */
+        }
+        .mobile-menu.open {
+            transform: translateX(0); /* openクラスで表示 */
+        }
+
+        /* 追加: ヘッダーのトランジション用CSS */
+        .header-bg-transition {
+            transition: background-color 0.3s ease-in-out;
+        }
+        
+        /* 追加: 透過ヘッダー時のテキスト色（初期状態） */
+        .header-transparent-text {
+            color: #ffffff; /* 白文字 */
+        }
+        /* 追加: 透過ヘッダー時のホバー色 */
+        .header-transparent-hover:hover {
+            color: #4F46E5; /* アクセントカラー */
+        }
     </style>
 </head>
 <body class="antialiased">
 
     <!-- ヘッダー -->
-    <header class="sticky top-0 z-50 bg-white header-shadow">
+    <!-- IDと初期クラスを修正: bg-gray-900 bg-opacity-70を適用。初期のテキスト色を白にするためのクラスを追加 -->
+    <header id="main-header" class="fixed top-0 left-0 w-full z-50 header-shadow bg-gray-900 bg-opacity-70 header-bg-transition">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <!-- ロゴ -->
+                <!-- ロゴ: 初期色は白、スクロール後は黒に変化 -->
                 <div class="flex-shrink-0">
-                    <a href="#" class="text-2xl font-bold text-gray-900 tracking-tight">Digital<span class="text-accent">Solutions</span></a>
+                    <a href="#" class="text-2xl font-bold tracking-tight text-white header-text-color transition-colors duration-300">Digital<span class="text-accent">Solutions</span></a>
                 </div>
-                <!-- ナビゲーション (デスクトップ用) -->
+                <!-- ナビゲーション (デスクトップ用): 初期色は白、スクロール後は黒に変化 -->
                 <nav class="hidden md:flex space-x-8">
+                    <!-- 修正: 初期色は白、ホバーはそのまま -->
+                    <a href="#services" class="font-medium transition duration-150 nav-link text-white hover:text-accent header-nav-link">サービス</a>
+                    <a href="#portfolio" class="font-medium transition duration-150 nav-link text-white hover:text-accent header-nav-link">実績</a>
+                    <a href="#features" class="font-medium transition duration-150 nav-link text-white hover:text-accent header-nav-link">強み</a>
                     <!-- 修正: nav-linkクラスを追加 -->
-                    <a href="#services" class="text-gray-600 hover:text-accent font-medium transition duration-150 nav-link">サービス</a>
-                    <a href="#portfolio" class="text-gray-600 hover:text-accent font-medium transition duration-150 nav-link">実績</a>
-                    <a href="#features" class="text-gray-600 hover:text-accent font-medium transition duration-150 nav-link">強み</a>
-                    <!-- 修正: nav-linkクラスを追加 -->
-                    <a href="#contact" class="text-gray-600 hover:text-accent font-medium transition duration-150 nav-link">お問い合せ</a>
+                    <a href="#contact" class="font-medium transition duration-150 nav-link text-white hover:text-accent header-nav-link">お問い合せ</a>
                 </nav>
+                
+                <!-- モバイルメニューボタン: 初期色は白、スクロール後は黒に変化 -->
+                <button id="mobile-menu-button" class="md:hidden text-white hover:text-accent focus:outline-none transition-colors duration-300 header-menu-icon">
+                    <i data-lucide="menu" class="h-6 w-6"></i>
+                </button>
             </div>
         </div>
     </header>
 
+    <!-- モバイルメニュー (ドロワー形式) -->
+    <div id="mobile-menu" class="mobile-menu fixed top-0 right-0 h-full w-64 bg-white shadow-2xl z-[55] md:hidden p-6">
+        <div class="flex justify-end mb-8">
+            <button id="close-menu-button" class="text-gray-600 hover:text-accent focus:outline-none">
+                <i data-lucide="x" class="h-6 w-6"></i>
+            </button>
+        </div>
+        <nav class="flex flex-col space-y-4">
+            <!-- モバイルメニューのリンク。クリック時にメニューを閉じる処理を追加 -->
+            <a href="#services" class="text-gray-800 hover:text-accent font-semibold transition duration-150 text-lg" onclick="closeMobileMenu()">サービス</a>
+            <a href="#portfolio" class="text-gray-800 hover:text-accent font-semibold transition duration-150 text-lg" onclick="closeMobileMenu()">実績</a>
+            <a href="#features" class="text-gray-800 hover:text-accent font-semibold transition duration-150 text-lg" onclick="closeMobileMenu()">強み</a>
+            <a href="#contact" class="text-gray-800 hover:text-accent font-semibold transition duration-150 text-lg" onclick="closeMobileMenu()">お問い合せ</a>
+        </nav>
+    </div>
+    <!-- モバイルメニュー用のオーバーレイ -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 hidden md:hidden" onclick="closeMobileMenu()"></div>
+
     <main>
         <!-- ヒーローセクション -->
-        <section class="relative pb-32 overflow-hidden hero-bg-digital hero-bg-digital-fallback text-white" style="overflow:visible !important;">
+        <!-- IDを追加して、ヘッダーの背景色変更の基準点にする -->
+        <section id="hero-section" class="relative pb-32 overflow-hidden hero-bg-digital hero-bg-digital-fallback text-white" style="overflow:visible !important;">
             <!-- 暗いオーバーレイ -->
             <div class="absolute inset-0 bg-gray-900 opacity-60"></div> 
             
@@ -173,6 +221,7 @@
         </section>
 
         <!-- お悩みセクション -->
+        <!-- 修正: セクション全体の背景色をbg-whiteに戻す -->
         <section id="concerns" class="py-20 sm:py-24 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
@@ -184,8 +233,8 @@
                     <div class="title-underline mx-auto mt-4 bg-accent"></div>
                 </div>
 
-                <!-- 修正: イラスト付きの2カラムレイアウトを復元 (max-w-6xlに変更) -->
-                <div class="max-w-6xl mx-auto p-8 bg-gray-50 rounded-xl shadow-2xl border-l-4 border-accent">
+                <!-- 悩みリストのコンテナ背景色をbg-blue-50のまま維持し、セクション背景と差別化 -->
+                <div class="max-w-6xl mx-auto p-8 bg-blue-50 rounded-xl shadow-2xl border-l-4 border-accent">
                     
                     <!-- コンテナ内をグリッドで左右に分割 (リスト: 2/3, イラスト: 1/3) -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
@@ -269,21 +318,22 @@
                 </div>
 
                 <div class="mt-10 grid grid-cols-1 gap-10 md:grid-cols-3">
-                    <!-- サービス 1: LP開発 - URLの文言を適用 (維持) -->
+                    <!-- サービス 1: LP開発 -->
                     <div class="flex flex-col rounded-xl shadow-xl overflow-hidden transform transition duration-500 hover:shadow-2xl hover:-translate-y-1 bg-gradient-to-br from-blue-50 to-indigo-100">
-                        <div class="p-8 flex-grow">
+                        <!-- flex-grow: カードの高さを揃えるために、アイコン、タイトル、説明文、リストを含む主要コンテンツエリアを拡大可能にする -->
+                        <div class="p-8 flex-grow flex flex-col">
                             <!-- アイコンを画像に置換 (中央寄せ) -->
                             <div class="flex-shrink-0 mb-4 flex justify-center">
                                 <img src="Image/SERVICES1.png" alt="LP開発のイラスト" class="h-16 w-16 object-contain">
                             </div>
                             <!-- h3 (メインタイトル) のみを中央寄せ -->
                             <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">LP開発</h3>
-                            <!-- 説明文とリストは左詰め (デフォルト) - URLの文言を適用 (維持) -->
-                            <p class="text-gray-500 mb-4 text-left">
-                                あなたのサービスや商品を、わかりやすく魅力的に伝えるWebサイトを作成します。AIを活用して効率的に、でも温かみのあるデザインで。
+                            <!-- 説明文を修正し、flex-growで高さを均等にする -->
+                            <p class="text-gray-500 mb-4 text-left flex-grow">
+                                あなたのサービスや商品を、わかりやすく魅力的に伝えるWebサイトを作成します。
                             </p>
                             <!-- リストは左詰め -->
-                            <ul class="space-y-2 text-sm text-gray-600 text-left">
+                            <ul class="space-y-2 text-sm text-gray-600 text-left flex-shrink-0">
                                 <li class="flex items-center service-list-item"><i data-lucide="check-circle" class="h-4 w-4 text-green-500 mr-2"></i>レスポンシブ対応で、どの端末でも見やすく</li>
                                 <li class="flex items-center service-list-item"><i data-lucide="check-circle" class="h-4 w-4 text-green-500 mr-2"></i>SEO対策で見つけてもらいやすく</li>
                                 <li class="flex items-center service-list-item"><i data-lucide="check-circle" class="h-4 w-4 text-green-500 mr-2"></i>運用しやすいシンプルな構成</li>
@@ -292,21 +342,21 @@
                         </div>
                     </div>
 
-                    <!-- サービス 2: ツール作成 - URLの文言を適用 (維持) -->
+                    <!-- サービス 2: ツール作成 -->
                     <div class="flex flex-col rounded-xl shadow-xl overflow-hidden transform transition duration-500 hover:shadow-2xl hover:-translate-y-1 bg-gradient-to-br from-green-50 to-teal-100">
-                        <div class="p-8 flex-grow">
+                        <div class="p-8 flex-grow flex flex-col">
                             <!-- アイコンを画像に置換 (中央寄せ) -->
                             <div class="flex-shrink-0 mb-4 flex justify-center">
                                 <img src="Image/SERVICES2.png" alt="ツール作成のイラスト" class="h-16 w-16 object-contain">
                             </div>
                             <!-- h3 (メインタイトル) のみを中央寄せ -->
                             <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">ツール作成</h3>
-                            <!-- 説明文とリストは左詰め (デフォルト) - URLの文言を適用 (維持) -->
-                            <p class="text-gray-500 mb-4 text-left">
+                            <!-- flex-growで高さを均等にする -->
+                            <p class="text-gray-500 mb-4 text-left flex-grow">
                                 繰り返しの作業や面倒な手作業を、AIで自動化。あなたの時間を作り出し、本当に大切なことに集中できるようサポートします。
                             </p>
                             <!-- リストは左詰め -->
-                            <ul class="space-y-2 text-sm text-gray-600 text-left">
+                            <ul class="space-y-2 text-sm text-gray-600 text-left flex-shrink-0">
                                 <li class="flex items-center service-list-item"><i data-lucide="check-circle" class="h-4 w-4 text-green-500 mr-2"></i>データ入力・集計の自動化</li>
                                 <li class="flex items-center service-list-item"><i data-lucide="check-circle" class="h-4 w-4 text-green-500 mr-2"></i>レポート作成の効率化</li>
                                 <li class="flex items-center service-list-item"><i data-lucide="check-circle" class="h-4 w-4 text-green-500 mr-2"></i>簡単に使える操作画面</li>
@@ -315,21 +365,21 @@
                         </div>
                     </div>
 
-                    <!-- サービス 3: AI研修 - URLの文言を適用 (維持) -->
+                    <!-- サービス 3: AI研修 -->
                     <div class="flex flex-col rounded-xl shadow-xl overflow-hidden transform transition duration-500 hover:shadow-2xl hover:-translate-y-1 bg-gradient-to-br from-purple-50 to-pink-100">
-                        <div class="p-8 flex-grow">
+                        <div class="p-8 flex-grow flex flex-col">
                             <!-- アイコンを画像に置換 (中央寄せ) -->
                             <div class="flex-shrink-0 mb-4 flex justify-center">
                                 <img src="Image/SERVICES3.png" alt="AI研修のイラスト" class="h-16 w-16 object-contain">
                             </div>
                             <!-- h3 (メインタイトル) のみを中央寄せ -->
                             <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">AI研修</h3>
-                            <!-- 説明文とリストは左詰め (デフォルト) - URLの文言を適用 (維持) -->
-                            <p class="text-gray-500 mb-4 text-left">
+                            <!-- flex-growで高さを均等にする -->
+                            <p class="text-gray-500 mb-4 text-left flex-grow">
                                 AIツールの使い方を、基礎から丁寧にお教えします。難しい専門用語は使わず、実際の業務ですぐに使える実践的な内容です。
                             </p>
                             <!-- リストは左詰め -->
-                            <ul class="space-y-2 text-sm text-gray-600 text-left">
+                            <ul class="space-y-2 text-sm text-gray-600 text-left flex-shrink-0">
                                 <li class="flex items-center service-list-item"><i data-lucide="check-circle" class="h-4 w-4 text-green-500 mr-2"></i>ChatGPTなど身近なツールの活用法</li>
                                 <li class="flex items-center service-list-item"><i data-lucide="check-circle" class="h-4 w-4 text-green-500 mr-2"></i>業務に合わせたカスタマイズ方法</li>
                                 <li class="flex items-center service-list-item"><i data-lucide="check-circle" class="h-4 w-4 text-green-500 mr-2"></i>少人数制でわかりやすく</li>
@@ -342,6 +392,7 @@
         </section>
 
         <!-- 実績セクション -->
+        <!-- 修正: セクション全体の背景色をbg-whiteに戻す -->
         <section id="portfolio" class="py-20 sm:py-32 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
@@ -355,8 +406,8 @@
                 </div>
 
                 <div class="mt-12 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
-                    <!-- 実績 1: ゲーム機買取・在庫管理システム (画像パス変更) -->
-                    <div class="bg-gray-50 rounded-xl shadow-lg overflow-hidden group">
+                    <!-- 実績 1: ゲーム機買取・在庫管理システム (背景色変更) -->
+                    <div class="bg-gradient-to-br from-pink-50 to-orange-100 rounded-xl shadow-lg overflow-hidden group">
                         <div class="relative w-full h-56 overflow-hidden">
                             <!-- 修正: border-4 border-white を追加 -->
                             <img src="Image/PORTFOLIO1.png" alt="[ゲーム在庫管理システムのイメージ]" class="w-full h-full object-cover transition duration-300 group-hover:scale-105 border-4 border-white">
@@ -382,8 +433,8 @@
                         </div>
                     </div>
 
-                    <!-- 実績 2: ココデザイン LP (画像パス変更) -->
-                    <div class="bg-gray-50 rounded-xl shadow-lg overflow-hidden group">
+                    <!-- 実績 2: ココデザイン LP (背景色変更) -->
+                    <div class="bg-gradient-to-br from-pink-50 to-orange-100 rounded-xl shadow-lg overflow-hidden group">
                         <div class="relative w-full h-56 overflow-hidden">
                             <!-- 修正: border-4 border-white を追加 -->
                             <img src="Image/PORTFOLIO2.png" alt="[マーケティングLPのイメージ]" class="w-full h-full object-cover transition duration-300 group-hover:scale-105 border-4 border-white">
@@ -408,8 +459,8 @@
                         </div>
                     </div>
 
-                    <!-- 実績 3: 「ポケサーチ」 (画像パス変更) -->
-                    <div class="bg-gray-50 rounded-xl shadow-lg overflow-hidden group">
+                    <!-- 実績 3: 「ポケサーチ」 (背景色変更) -->
+                    <div class="bg-gradient-to-br from-pink-50 to-orange-100 rounded-xl shadow-lg overflow-hidden group">
                         <div class="relative w-full h-56 overflow-hidden">
                             <!-- 修正: border-4 border-white を追加 -->
                             <img src="Image/PORTFOLIO3.png" alt="[専門検索ツールのイメージ]" class="w-full h-full object-cover transition duration-300 group-hover:scale-105 border-4 border-white">
@@ -458,8 +509,8 @@
                 <!-- 4つのカードレイアウト (縦長+写真を追加) - 順序を変更 -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
                     
-                    <!-- カード 1: プロジェクト実績 (維持) -->
-                    <div class="flex flex-col bg-white rounded-xl shadow-lg border-t-4 border-green-600 transition duration-300 hover:shadow-xl overflow-hidden">
+                    <!-- カード 1: プロジェクト実績 (背景色にグラデーションを適用) -->
+                    <div class="flex flex-col rounded-xl shadow-lg border-t-4 border-green-600 transition duration-300 hover:shadow-xl overflow-hidden bg-gradient-to-br from-green-50 to-emerald-100">
                         <div class="flex-grow p-6 flex flex-col items-center text-center">
                             <!-- 修正: text-accent -> text-green-600 -->
                             <div class="text-5xl font-extrabold text-green-600 mb-2">50+</div>
@@ -473,8 +524,8 @@
                         <img src="Image/Reason1.png" alt="実績のイメージ" class="w-full h-40 object-cover border-t border-gray-100">
                     </div>
 
-                    <!-- カード 2: 顧客満足度 (維持) -->
-                    <div class="flex flex-col bg-white rounded-xl shadow-lg border-t-4 border-green-600 transition duration-300 hover:shadow-xl overflow-hidden">
+                    <!-- カード 2: 顧客満足度 (背景色にグラデーションを適用) -->
+                    <div class="flex flex-col rounded-xl shadow-lg border-t-4 border-green-600 transition duration-300 hover:shadow-xl overflow-hidden bg-gradient-to-br from-green-50 to-emerald-100">
                         <div class="flex-grow p-6 flex flex-col items-center text-center">
                             <!-- 修正: text-accent -> text-green-600 -->
                             <div class="text-5xl font-extrabold text-green-600 mb-2">98%</div>
@@ -488,8 +539,8 @@
                         <img src="Image/Reason2.png" alt="満足度のイメージ" class="w-full h-40 object-cover border-t border-gray-100">
                     </div>
                     
-                    <!-- 修正: カード 3: スピーディな対応へ変更 -->
-                    <div class="flex flex-col bg-white rounded-xl shadow-lg border-t-4 border-green-600 transition duration-300 hover:shadow-xl overflow-hidden">
+                    <!-- 修正: カード 3: スピーディな対応へ変更 (背景色にグラデーションを適用) -->
+                    <div class="flex flex-col rounded-xl shadow-lg border-t-4 border-green-600 transition duration-300 hover:shadow-xl overflow-hidden bg-gradient-to-br from-green-50 to-emerald-100">
                         <div class="flex-grow p-6 flex flex-col items-center text-center">
                             <!-- アイコンをzapに変更 -->
                             <div class="flex-shrink-0 bg-green-600 p-3 rounded-full text-white shadow-md mb-4">
@@ -506,8 +557,8 @@
                         <img src="Image/Reason3.png" alt="成果のイメージ" class="w-full h-40 object-cover border-t border-gray-100">
                     </div>
 
-                    <!-- 修正: カード 4: 安心の品質へ変更 -->
-                    <div class="flex flex-col bg-white rounded-xl shadow-lg border-t-4 border-green-600 transition duration-300 hover:shadow-xl overflow-hidden">
+                    <!-- カード 4: 安心の品質へ変更 (背景色にグラデーションを適用) -->
+                    <div class="flex flex-col rounded-xl shadow-lg border-t-4 border-green-600 transition duration-300 hover:shadow-xl overflow-hidden bg-gradient-to-br from-green-50 to-emerald-100">
                         <div class="flex-grow p-6 flex flex-col items-center text-center">
                             <!-- アイコンをshield-checkに変更 -->
                             <div class="flex-shrink-0 bg-green-600 p-3 rounded-full text-white shadow-md mb-4">
@@ -526,17 +577,18 @@
 
                 </div>
 
-                <!-- 充実したサポート体制 (イラストを削除し、テキストのみの1カラムレイアウトに戻す) -->
-                <div class="max-w-4xl mx-auto p-8 bg-white rounded-xl shadow-2xl border-l-4 border-green-600 flex flex-col md:flex-row items-center gap-8">
+                <!-- 充実したサポート体制 (イラストを復元し、寒色グラデーションを維持) -->
+                <div class="max-w-4xl mx-auto p-8 bg-gradient-to-r from-blue-50 to-indigo-100 rounded-xl shadow-2xl border-l-4 border-accent flex flex-col md:flex-row items-center gap-8">
                     <div class="flex-1 w-full">
                         <h4 class="text-2xl font-bold text-gray-900 mb-4">充実したサポート体制</h4>
                         <ul class="space-y-4 text-gray-700">
-                            <li class="flex items-start"><i data-lucide="check" class="h-5 w-5 text-green-600 flex-shrink-0 mt-1 mr-2"></i><p>納品後の運用支援、バグ修正、機能改善提案まで継続的にサポートします。</p></li>
-                            <li class="flex items-start"><i data-lucide="check" class="h-5 w-5 text-green-600 flex-shrink-0 mt-1 mr-2"></i><p>24/7の緊急対応可能なサポート体制で、安心を提供します。</p></li>
-                            <li class="flex items-start"><i data-lucide="check" class="h-5 w-5 text-green-600 flex-shrink-0 mt-1 mr-2"></i><p>ご要望に応じて、保守・運用フェーズでの技術的なトレーニングも実施可能です。</p></li>
+                            <li class="flex items-start"><i data-lucide="check" class="h-5 w-5 text-accent flex-shrink-0 mt-1 mr-2"></i><p>納品後の運用支援、バグ修正、機能改善提案まで継続的にサポートします。</p></li>
+                            <li class="flex items-start"><i data-lucide="check" class="h-5 w-5 text-accent flex-shrink-0 mt-1 mr-2"></i><p>24/7の緊急対応可能なサポート体制で、安心を提供します。</p></li>
+                            <li class="flex items-start"><i data-lucide="check" class="h-5 w-5 text-accent flex-shrink-0 mt-1 mr-2"></i><p>ご要望に応じて、保守・運用フェーズでの技術的なトレーニングも実施可能です。</p></li>
                         </ul>
                     </div>
                     <div class="w-full md:w-auto flex justify-center">
+                        <!-- 修正: 画像を復元 -->
                         <img src="Image/Support.png" alt="サポートイメージ" class="h-40 object-contain" style="max-width:250px;" />
                     </div>
                 </div>
@@ -772,10 +824,96 @@
             targets.forEach(target => observer.observe(target));
         }
 
+        // ヘッダー背景色変更処理の追加
+        function setupHeaderObserver() {
+            const header = document.getElementById('main-header');
+            const hero = document.getElementById('hero-section');
+            const logo = header.querySelector('.header-text-color');
+            const navLinks = header.querySelectorAll('.header-nav-link');
+            const menuIcon = header.querySelector('.header-menu-icon');
+
+            if (!header || !hero) {
+                console.error("Header or Hero section not found.");
+                return;
+            }
+
+            // Heroセクションの終わりを監視するObserverを作成
+            const headerObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Heroセクションが見えているとき（交差しているとき）
+                        // 背景を半透明の暗い色に戻す (初期状態)
+                        header.classList.add('bg-gray-900', 'bg-opacity-70');
+                        header.classList.remove('bg-white');
+
+                        // テキスト色を白に戻す
+                        logo.classList.add('text-white');
+                        logo.classList.remove('text-gray-900');
+                        navLinks.forEach(link => {
+                            link.classList.add('text-white');
+                            link.classList.remove('text-gray-600');
+                        });
+                        menuIcon.classList.add('text-white');
+                        menuIcon.classList.remove('text-gray-600');
+
+
+                    } else {
+                        // Heroセクションを過ぎたとき
+                        // 背景を不透明な白にする
+                        header.classList.remove('bg-gray-900', 'bg-opacity-70');
+                        header.classList.add('bg-white');
+
+                        // テキスト色を黒に戻す
+                        logo.classList.remove('text-white');
+                        logo.classList.add('text-gray-900');
+                        navLinks.forEach(link => {
+                            link.classList.remove('text-white');
+                            link.classList.add('text-gray-600');
+                        });
+                        menuIcon.classList.remove('text-white');
+                        menuIcon.classList.add('text-gray-600');
+                    }
+                });
+            }, {
+                // viewportのトップと交差するときを検出
+                rootMargin: "-1px 0px 0px 0px", // ヒーローセクションがビューポートのトップから1px下にきたら発火
+                threshold: 0 // thresholdは0で良い
+            });
+
+            // ヒーローセクションを監視対象に追加
+            headerObserver.observe(hero);
+        }
+
+        // モバイルメニュー処理
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const closeMenuButton = document.getElementById('close-menu-button');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('open');
+            mobileMenuOverlay.classList.remove('hidden');
+            lucide.createIcons(); // 新しいアイコン（x）をレンダリング
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('open');
+            mobileMenuOverlay.classList.add('hidden');
+        }
+
+        if (mobileMenuButton) {
+            mobileMenuButton.addEventListener('click', openMobileMenu);
+        }
+        if (closeMenuButton) {
+            closeMenuButton.addEventListener('click', closeMobileMenu);
+        }
+
         // ウィンドウのロードが完了したら実行
         window.onload = function() {
             // Intersection Observerをセットアップ
             setupIntersectionObserver();
+            // ヘッダーの透過・固定処理をセットアップ
+            setupHeaderObserver();
         };
     </script>
 </body>
