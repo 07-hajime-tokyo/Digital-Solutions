@@ -292,8 +292,9 @@
                             </div>
                         </div>
                         
-                        <!-- 右側: イラスト (1/3の幅, デスクトップのみ表示) -->
-                        <div class="hidden md:flex justify-center items-center h-full md:col-span-1">
+                        <!-- 右側: イラスト (1/3の幅) -->
+                        <!-- 修正: hidden md:flex を flex に変更し、モバイルでも表示されるようにする -->
+                        <div class="flex justify-center items-center md:col-span-1 mt-8 md:mt-0">
                             <!-- イラストを再配置 -->
                             <img src="Image/worry.png" alt="悩んでいるビジネスパーソンのイラスト" class="max-w-full h-auto">
                         </div>
